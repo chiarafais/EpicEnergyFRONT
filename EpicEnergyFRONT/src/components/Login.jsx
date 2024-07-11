@@ -12,16 +12,13 @@ const Login = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/auth/user/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: email, password: password }),
-        }
-      );
+      const response = await fetch("http://localhost:3001/api/auth/user/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: email, password: password }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -40,7 +37,7 @@ const Login = () => {
   };
 
   return (
-    <div className="d-flex align-items-center vh-100">
+    <div className="d-flex align-items-center vh-100 backgroundYellow">
       <Container className="mb-5 pb-5">
         <Row className="justify-content-md-center">
           <Col md="4">
@@ -74,8 +71,10 @@ const Login = () => {
               </Button>
             </Form>
             <div className="text-center">
-              <h5>O</h5>
-              <Link to={"/register"}>Registrati</Link>
+              <small className="d-block">oppure</small>
+              <Link to={"/register"} className="registrati">
+                Registrati
+              </Link>
             </div>
           </Col>
         </Row>

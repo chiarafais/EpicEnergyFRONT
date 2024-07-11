@@ -35,17 +35,18 @@ const RegisterUser = () => {
   };
 
   return (
-    <div className="d-flex align-items-center vh-100">
+    <div className="d-flex align-items-center vh-100 backgroundYellow2">
       <Container className="mb-5 pb-5">
         <Row className="justify-content-md-center">
           <Col md="4">
-            <h2>Registrazione</h2>
+            <h2 className="text-center">Registrazione</h2>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label>Nome:</Form.Label>
                 <Form.Control
                   type="text"
                   value={name}
+                  placeholder="Inserisci il tuo nome"
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
@@ -55,6 +56,7 @@ const RegisterUser = () => {
                 <Form.Control
                   type="text"
                   value={surname}
+                  placeholder="Inserisci il cognome"
                   onChange={(e) => setSurname(e.target.value)}
                   required
                 />
@@ -64,6 +66,7 @@ const RegisterUser = () => {
                 <Form.Control
                   type="text"
                   value={username}
+                  placeholder="Scegli un username"
                   onChange={(e) => setUsername(e.target.value)}
                   required
                 />
@@ -73,6 +76,7 @@ const RegisterUser = () => {
                 <Form.Control
                   type="email"
                   value={email}
+                  placeholder="Inserisci email"
                   onChange={(e) => setEmail(e.target.value)}
                   required
                 />
@@ -82,11 +86,12 @@ const RegisterUser = () => {
                 <Form.Control
                   type="password"
                   value={password}
+                  placeholder="Scegli una password"
                   onChange={(e) => setPassword(e.target.value)}
                   required
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" className="mt-2">
+              <Button variant="primary" type="submit" className="mt-2 registratiButton">
                 Registrati
               </Button>
             </Form>

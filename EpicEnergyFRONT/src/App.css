@@ -1,9 +1,63 @@
 .divContainerTable {
-  width: 96%;
   overflow: auto;
   font-size: 13px;
-  margin-inline: auto;
 }
 select#filterSelect {
   text-align: center;
+}
+button.w-100.mt-2.btn.btn-primary {
+  background-color: #242320;
+  border: none;
+  border-radius: 5px;
+}
+.backgroundYellow {
+  background-image: linear-gradient(to right top, #ebe6da, #e8d9b1, #e3cd88, #dbc05d, #d2b42b);
+}
+.registrati {
+  color: #242320;
+  font-size: 17px;
+  font-weight: 500;
+}
+.backgroundYellow2 {
+  background-image: linear-gradient(to left bottom, #ebe6da, #e8d9b1, #e3cd88, #dbc05d, #d2b42b);
+}
+.registratiButton {
+  width: 100%;
+  background-color: #242320;
+  border: none;
+}
+.newCustomerButton {
+  background-color: #242320;
+  border: none;
+  border-radius: 5px;
+}
+.filterByButton {
+  border: 2px solid black;
+  padding: 4px;
+  font-weight: 500;
+}
+.backgroundYellow3 {
+  background-image: linear-gradient(to bottom, #ebe6da, #e8d9b1, #e3cd88, #dbc05d, #d2b42b);
+  height: 100vh;
+}
+.divButtonModal {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.form-label {
+  margin: 0.5rem;
+  font-size: 14px;
+  font-weight: 600;
+}
+.saveCustomerButtonModal {
+  background-color: #746527;
+  border: none;
+}
+.closeCustomerButtonModal {
+  background-color: #0e0e0c;
+  border: none;
+}
+input.form-control {
+  font-size: 14px;
 }
