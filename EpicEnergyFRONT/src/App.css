@@ -1,0 +1,9 @@
+.divContainerTable {
+  width: 96%;
+  overflow: auto;
+  font-size: 13px;
+  margin-inline: auto;
+}
+select#filterSelect {
+  text-align: center;
+}

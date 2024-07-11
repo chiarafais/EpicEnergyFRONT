@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button, Col, Form, Container, Row, Alert } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -73,6 +73,10 @@ const Login = () => {
                 Accedi
               </Button>
             </Form>
+            <div className="text-center">
+              <h5>O</h5>
+              <Link to={"/register"}>Registrati</Link>
+            </div>
           </Col>
         </Row>
       </Container>
