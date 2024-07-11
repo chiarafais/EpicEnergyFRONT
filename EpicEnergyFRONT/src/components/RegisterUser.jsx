@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const RegisterUser = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [username, setUsername] = useState("");
@@ -97,4 +97,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default RegisterUser;
