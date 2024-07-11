@@ -14,13 +14,16 @@ const RegisterUser = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/auth/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, surname, username, email, password }),
-      });
+      const response = await fetch(
+        "http://localhost:3001/api/auth/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, surname, username, email, password }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
