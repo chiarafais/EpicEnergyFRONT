@@ -1,19 +1,20 @@
 
-import './App.css'
-import Register from './components/Register'
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css";
+import Login from "./components/Login";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Mainpage from "./components/Mainpage";
 
 function App() {
-
   return (
-    <>
-    
-        <Register>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/main" element={<Mainpage />} />
+      </Routes>
+    </BrowserRouter>
+  );
 
-        </Register>
-        
-           
-    </>
-  )
 }
 
-export default App
+export default App;
