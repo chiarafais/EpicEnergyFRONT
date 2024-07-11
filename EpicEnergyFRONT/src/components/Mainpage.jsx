@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { Table, Form } from "react-bootstrap";
+import { Table, Form, Button, Modal } from "react-bootstrap";
 
 const Mainpage = () => {
+  const [show, setShow] = useState(false);
+
   const [token, setToken] = useState(null);
   const [customer, setCustomer] = useState([]);
   const [filter, setFilter] = useState("name");
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     const localeToken = localStorage.getItem("token");
@@ -42,6 +47,29 @@ const Mainpage = () => {
 
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
+  };
+
+  const handleCustomers = async () => {
+    try {
+      let url = `http://localhost:3001/api/customers`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "");
+      }
+
+      const data = await response.json();
+      setCustomer(data.content);
+      console.log("Customers: ", data);
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -103,6 +131,74 @@ const Mainpage = () => {
           ))}
         </tbody>
       </Table>
+      <Button variant="primary" onClick={handleShow}>
+        New customer
+      </Button>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Woohoo, you are reading this text in a modal!</Modal.Body>
+        <Modal.Footer>
+          <Form onSubmit={handleSubmit}>
+            <Form.Group>
+              <Form.Label>Nome:</Form.Label>
+              <Form.Control
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Cognome:</Form.Label>
+              <Form.Control
+                type="text"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Form.Group>
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Button variant="primary" type="submit" className="mt-2">
+              Registrati
+            </Button>
+          </Form>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+          <Button variant="primary" onClick={(handleClose, handleCustomers)}>
+            Save Customers
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
