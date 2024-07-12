@@ -98,3 +98,8 @@ body {
   border: none;
   height: 46px;
 }
+.centerInfoButton {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
