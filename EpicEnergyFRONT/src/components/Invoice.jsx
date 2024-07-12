@@ -1,61 +1,61 @@
-import { useEffect, useState } from "react"
-import { Button, Container, Form, Modal, Table } from "react-bootstrap"
-import { useParams } from "react-router-dom"
+import { useEffect, useState } from "react";
+import { Button, Form, Modal, Table } from "react-bootstrap";
+import { useParams } from "react-router-dom";
 
 const Invoice = () => {
-  const { id } = useParams()
-  const [invoice, setInvoice] = useState(null)
-  const [token, setToken] = useState(null)
-  const [show, setShow] = useState(false)
+  const { id } = useParams();
+  const [invoice, setInvoice] = useState(null);
+  const [token, setToken] = useState(null);
+  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
-  const [invoice_date, setInvoice_date] = useState("")
-  const [import_invoice, setImport_invoice] = useState("")
-  const [number_invoice, setNumber_invoice] = useState("")
-  const [customer_id, setCustomer_id] = useState(id)
-  const [name_status, setName_status] = useState("")
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [invoice_date, setInvoice_date] = useState("");
+  const [import_invoice, setImport_invoice] = useState("");
+  const [number_invoice, setNumber_invoice] = useState("");
+  const [customer_id, setCustomer_id] = useState(id);
+  const [name_status, setName_status] = useState("");
 
-  console.log(invoice)
+  console.log(invoice);
 
   useEffect(() => {
-    const localeToken = localStorage.getItem("token")
-    setToken(localeToken)
-  }, [])
+    const localeToken = localStorage.getItem("token");
+    setToken(localeToken);
+  }, []);
 
   useEffect(() => {
     if (token) {
-      fetchInvoice()
+      fetchInvoice();
     }
-  }, [token])
+  }, [token]);
 
   const fetchInvoice = async () => {
     try {
-      let url = `http://localhost:3001/api/invoices/customer/${id}`
+      let url = `http://localhost:3001/api/invoices/customer/${id}`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "")
+        const errorData = await response.json();
+        throw new Error(errorData.message || "");
       }
 
-      const data = await response.json()
-      setInvoice(data)
+      const data = await response.json();
+      setInvoice(data);
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
 
   const handleInvoices = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
-      let url = `http://localhost:3001/api/invoices`
+      let url = `http://localhost:3001/api/invoices`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -69,49 +69,47 @@ const Invoice = () => {
           customer_id,
           name_status,
         }),
-      })
+      });
 
       if (!response.ok) {
-        const errorData = await response.json()
-        throw new Error(errorData.message || "")
+        const errorData = await response.json();
+        throw new Error(errorData.message || "");
       }
 
-      const data = await response.json()
-      setInvoice(data.content)
-      console.log("Customers: ", data)
-      fetchInvoice()
+      const data = await response.json();
+      setInvoice(data.content);
+      console.log("Customers: ", data);
+      fetchInvoice();
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
-  }
+  };
   return (
     <>
-      <Container>
-        <Button variant='primary' onClick={handleShow} className='my-2'>
-          Edit Invoice
-        </Button>
+      <Button variant="primary" onClick={handleShow}>
+        Edit Invoice
+      </Button>
 
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Importo fattura</th>
-              <th>Data fattura</th>
-              <th>Numero fattura</th>
-              <th>Stato fattura</th>
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Importo fattura</th>
+            <th>Data fattura</th>
+            <th>Numero fattura</th>
+            <th>Stato fattura</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoice.map((invoices, index) => (
+            <tr key={index}>
+              <td>{invoices.importInvoice}</td>
+              <td>{invoices.invoiceDate}</td>
+              <td>{invoices.numberInvoice}</td>
+              <td>{invoices.invoiceState.statusName}</td>
             </tr>
-          </thead>
-          <tbody>
-            {invoice.map((invoices, index) => (
-              <tr key={index}>
-                <td>{invoices.importInvoice}</td>
-                <td>{invoices.invoiceDate}</td>
-                <td>{invoices.numberInvoice}</td>
-                <td>{invoices.invoiceState.statusName}</td>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
-      </Container>
+          ))}
+        </tbody>
+      </Table>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -121,32 +119,52 @@ const Invoice = () => {
           <Form onSubmit={handleInvoices}>
             <Form.Group>
               <Form.Label>Invoice Date:</Form.Label>
-              <Form.Control type='date' value={invoice_date} onChange={(e) => setInvoice_date(e.target.value)} required />
+              <Form.Control
+                type="date"
+                value={invoice_date}
+                onChange={(e) => setInvoice_date(e.target.value)}
+                required
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Import Invoice:</Form.Label>
-              <Form.Control type='number' value={import_invoice} onChange={(e) => setImport_invoice(e.target.value)} required />
+              <Form.Control
+                type="number"
+                value={import_invoice}
+                onChange={(e) => setImport_invoice(e.target.value)}
+                required
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Number Invoice:</Form.Label>
-              <Form.Control type='number' value={number_invoice} onChange={(e) => setNumber_invoice(e.target.value)} required />
+              <Form.Control
+                type="number"
+                value={number_invoice}
+                onChange={(e) => setNumber_invoice(e.target.value)}
+                required
+              />
             </Form.Group>
 
             <Form.Group>
               <Form.Label>Name Status:</Form.Label>
-              <Form.Control type='text' value={name_status} onChange={(e) => setName_status(e.target.value)} required />
+              <Form.Control
+                type="text"
+                value={name_status}
+                onChange={(e) => setName_status(e.target.value)}
+                required
+              />
             </Form.Group>
-            <Button variant='secondary' onClick={handleClose}>
+            <Button variant="secondary" onClick={handleClose}>
               Close
             </Button>
-            <Button variant='primary' type='submit'>
+            <Button variant="primary" type="submit">
               Save Changes
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
     </>
-  )
-}
+  );
+};
 
-export default Invoice
+export default Invoice;
