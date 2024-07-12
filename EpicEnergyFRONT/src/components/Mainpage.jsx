@@ -13,10 +13,9 @@ const Mainpage = () => {
   const [businessName, setBusinessName] = useState("");
   const [vatNumber, setVatNumber] = useState("");
   const [email, setEmail] = useState("");
-  const [insertionDate, setInsertionDate] = useState("");
   const [dateLastContact, setDateLastContact] = useState("");
   const [annualTurnover, setAnnualTurnover] = useState("");
-  const [pecCustomer, setPecCustomer] = useState("");
+  const [customerPec, setCustomerPec] = useState("");
   const [telCustomer, setTelCustomer] = useState("");
   const [emailContact, setEmailContact] = useState("");
   const [nameContact, setNameContact] = useState("");
@@ -33,30 +32,29 @@ const Mainpage = () => {
     setToken(localeToken);
   }, []);
 
-  useEffect(() => {
-    const getCustomer = async () => {
-      try {
-        let url = `http://localhost:3001/api/customers/${filter}`;
-        const response = await fetch(url, {
-          method: "GET",
-          headers: {
-            Authorization: "Bearer " + token,
-          },
-        });
+  const getCustomer = async () => {
+    try {
+      let url = `http://localhost:3001/api/customers/${filter}`;
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      });
 
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || "");
-        }
-
-        const data = await response.json();
-        setCustomer(data.content);
-        console.log("Customers: ", data);
-      } catch (err) {
-        console.log(err);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || "");
       }
-    };
 
+      const data = await response.json();
+      setCustomer(data.content);
+      console.log("Customers: ", data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
     if (token) {
       getCustomer();
     }
@@ -66,22 +64,23 @@ const Mainpage = () => {
     setFilter(e.target.value);
   };
 
-  const handleCustomers = async () => {
+  const handleCustomers = async (e) => {
+    e.preventDefault();
     try {
       let url = `http://localhost:3001/api/customers`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
+          "Content-Type": "application/json",
           Authorization: "Bearer " + token,
         },
         body: JSON.stringify({
           businessName,
           vatNumber,
           email,
-          insertionDate,
           dateLastContact,
           annualTurnover,
-          pecCustomer,
+          customerPec,
           telCustomer,
           emailContact,
           nameContact,
@@ -100,6 +99,7 @@ const Mainpage = () => {
       const data = await response.json();
       setCustomer(data.content);
       console.log("Customers: ", data);
+      getCustomer();
     } catch (err) {
       console.log(err);
     }
@@ -127,7 +127,12 @@ const Mainpage = () => {
                         <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1" />
                       </svg>
                     </Form.Label>
-                    <Form.Control as="select" value={filter} onChange={handleFilterChange} className="filterByButton">
+                    <Form.Control
+                      as="select"
+                      value={filter}
+                      onChange={handleFilterChange}
+                      className="filterByButton"
+                    >
                       <option value="name">Business Name</option>
                       <option value="turnover">Annual Turnover</option>
                       <option value="date">Insertion Date</option>
@@ -135,7 +140,11 @@ const Mainpage = () => {
                     </Form.Control>
                   </Col>
                   <Col xs={8} className="text-end p-0">
-                    <Button variant="primary" onClick={handleShow} className="newCustomerButton">
+                    <Button
+                      variant="primary"
+                      onClick={handleShow}
+                      className="newCustomerButton"
+                    >
                       Nuovo Cliente
                     </Button>
                   </Col>
@@ -165,25 +174,26 @@ const Mainpage = () => {
                 </tr>
               </thead>
               <tbody>
-                {customer.map((allCustomer, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{allCustomer.businessName}</td>
-                    <td>{allCustomer.vatNumber}</td>
-                    <td>{allCustomer.email}</td>
-                    <td>{allCustomer.insertionDate}</td>
-                    <td>{allCustomer.dateLastContact}</td>
-                    <td>{allCustomer.annualTurnover}</td>
-                    <td>{allCustomer.pecCustomer}</td>
-                    <td>{allCustomer.telCustomer}</td>
-                    <td>{allCustomer.emailContact}</td>
-                    <td>{allCustomer.nameContact}</td>
-                    <td>{allCustomer.surnameContact}</td>
-                    <td>{allCustomer.telContact}</td>
-                    <td>{allCustomer.logoAgency}</td>
-                    <td>{allCustomer.clientType}</td>
-                  </tr>
-                ))}
+                {customer &&
+                  customer.map((allCustomer, index) => (
+                    <tr key={index}>
+                      <td>{index + 1}</td>
+                      <td>{allCustomer.businessName}</td>
+                      <td>{allCustomer.vatNumber}</td>
+                      <td>{allCustomer.email}</td>
+                      <td>{allCustomer.insertionDate}</td>
+                      <td>{allCustomer.dateLastContact}</td>
+                      <td>{allCustomer.annualTurnover}</td>
+                      <td>{allCustomer.customerPec}</td>
+                      <td>{allCustomer.telCustomer}</td>
+                      <td>{allCustomer.emailContact}</td>
+                      <td>{allCustomer.nameContact}</td>
+                      <td>{allCustomer.surnameContact}</td>
+                      <td>{allCustomer.telContact}</td>
+                      <td>{allCustomer.logoAgency}</td>
+                      <td>{allCustomer.clientType}</td>
+                    </tr>
+                  ))}
               </tbody>
             </Table>
 
@@ -206,7 +216,7 @@ const Mainpage = () => {
                   <Form.Group>
                     <Form.Label>Vat Number:</Form.Label>
                     <Form.Control
-                      type="number"
+                      type="text"
                       value={vatNumber}
                       placeholder="Inserisci la p.IVA"
                       onChange={(e) => setVatNumber(e.target.value)}
@@ -223,15 +233,7 @@ const Mainpage = () => {
                       required
                     />
                   </Form.Group>
-                  <Form.Group>
-                    <Form.Label>Insertion Date:</Form.Label>
-                    <Form.Control
-                      type="date"
-                      value={insertionDate}
-                      onChange={(e) => setInsertionDate(e.target.value)}
-                      required
-                    />
-                  </Form.Group>
+
                   <Form.Group>
                     <Form.Label>Date Last Contact:</Form.Label>
                     <Form.Control
@@ -255,9 +257,9 @@ const Mainpage = () => {
                     <Form.Label>Pec Customer:</Form.Label>
                     <Form.Control
                       type="email"
-                      value={pecCustomer}
+                      value={customerPec}
                       placeholder="Inserisci la pec"
-                      onChange={(e) => setPecCustomer(e.target.value)}
+                      onChange={(e) => setCustomerPec(e.target.value)}
                       required
                     />
                   </Form.Group>
@@ -328,13 +330,17 @@ const Mainpage = () => {
                     />
                   </Form.Group>
                   <div className="divButtonModal">
-                    <Button variant="secondary" onClick={handleClose} className="closeCustomerButtonModal">
+                    <Button
+                      variant="secondary"
+                      onClick={handleClose}
+                      className="closeCustomerButtonModal"
+                    >
                       Close
                     </Button>
                     <Button
                       variant="primary"
                       type="submit"
-                      onClick={handleCustomers}
+                      onClick={handleClose}
                       className="saveCustomerButtonModal"
                     >
                       Save Customers
