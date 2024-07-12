@@ -6,8 +6,9 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //   const [roken, setToken] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -25,30 +26,38 @@ const Login = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError("");
         throw new Error(errorData.message || "Errore durante il login");
       }
 
       const data = await response.json();
       localStorage.setItem("token", data.tokenId);
       console.log("Login effetuato: " + data.tokenId);
-      setError("");
       navigate("/main");
     } catch (err) {
       console.log(err);
+      setAlertMessage(err.message);
+      setShowAlert(true);
     }
   };
 
   return (
-    <div className="d-flex align-items-center vh-100">
+    <div className="d-flex align-items-center vh-100 backgroundYellow">
       <Container className="mb-5 pb-5">
         <Row className="justify-content-md-center">
           <Col md="4">
             <h2 className="text-center">Login</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {showAlert && (
+              <Alert
+                variant="danger"
+                onClose={() => setShowAlert(false)}
+                dismissible
+              >
+                {alertMessage}
+              </Alert>
+            )}
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className="lablelRegistrati">Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Inserisci email"
@@ -59,7 +68,7 @@ const Login = () => {
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className="lablelRegistrati">Password</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -74,8 +83,10 @@ const Login = () => {
               </Button>
             </Form>
             <div className="text-center">
-              <h5>O</h5>
-              <Link to={"/register"}>Registrati</Link>
+              <small className="d-block text-white">oppure</small>
+              <Link to={"/register"} className="registrati">
+                Registrati
+              </Link>
             </div>
           </Col>
         </Row>
