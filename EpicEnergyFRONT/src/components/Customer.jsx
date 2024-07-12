@@ -84,6 +84,13 @@ const Customer = () => {
               >
                 Torna indietro
               </Button>
+              <Button
+                variant="primary"
+                onClick={() => navigate(`/invoice/${customer.id}`)}
+                className="ms-3"
+              >
+                Vedi Fatture
+              </Button>
             </div>
             <tbody>
               <tr>
