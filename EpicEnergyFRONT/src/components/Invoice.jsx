@@ -90,27 +90,28 @@ const Invoice = () => {
         Edit Invoice
       </Button>
 
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Importo fattura</th>
-            <th>Data fattura</th>
-            <th>Numero fattura</th>
-            <th>Stato fattura</th>
-          </tr>
-        </thead>
-        <tbody>
-          {invoice.map((invoices, index) => (
-            <tr key={index}>
-              <td>{invoices.importInvoice}</td>
-              <td>{invoices.invoiceDate}</td>
-              <td>{invoices.numberInvoice}</td>
-              <td>{invoices.invoiceState.statusName}</td>
+      {invoice && (
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>Importo fattura</th>
+              <th>Data fattura</th>
+              <th>Numero fattura</th>
+              <th>Stato fattura</th>
             </tr>
-          ))}
-        </tbody>
-      </Table>
-
+          </thead>
+          <tbody>
+            {invoice.map((inv, index) => (
+              <tr key={index}>
+                <td>{inv.importInvoice}</td>
+                <td>{inv.invoiceDate}</td>
+                <td>{inv.numberInvoice}</td>
+                <td>{inv.invoiceState.statusName}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      )}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit Invoice</Modal.Title>
@@ -144,7 +145,6 @@ const Invoice = () => {
                 required
               />
             </Form.Group>
-
             <Form.Group>
               <Form.Label>Name Status:</Form.Label>
               <Form.Control
