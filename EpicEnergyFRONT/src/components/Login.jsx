@@ -6,33 +6,37 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   //   const [roken, setToken] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch("http://localhost:3001/api/auth/user/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ email: email, password: password }),
-      });
+      const response = await fetch(
+        "http://localhost:3001/api/auth/user/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: email, password: password }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
-        setError("");
         throw new Error(errorData.message || "Errore durante il login");
       }
 
       const data = await response.json();
       localStorage.setItem("token", data.tokenId);
       console.log("Login effetuato: " + data.tokenId);
-      setError("");
       navigate("/main");
     } catch (err) {
       console.log(err);
+      setAlertMessage(err.message);
+      setShowAlert(true);
     }
   };
 
@@ -42,7 +46,15 @@ const Login = () => {
         <Row className="justify-content-md-center">
           <Col md="4">
             <h2 className="text-center">Login</h2>
-            {error && <Alert variant="danger">{error}</Alert>}
+            {showAlert && (
+              <Alert
+                variant="danger"
+                onClose={() => setShowAlert(false)}
+                dismissible
+              >
+                {alertMessage}
+              </Alert>
+            )}
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicEmail">
                 <Form.Label className="lablelRegistrati">Email</Form.Label>
