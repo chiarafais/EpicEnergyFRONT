@@ -108,7 +108,7 @@ const Invoice = () => {
             <Form.Group>
               <Form.Label>Import Invoice:</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 value={import_invoice}
                 onChange={(e) => setImport_invoice(e.target.value)}
                 required
@@ -117,7 +117,7 @@ const Invoice = () => {
             <Form.Group>
               <Form.Label>Number Invoice:</Form.Label>
               <Form.Control
-                type="text"
+                type="number"
                 value={number_invoice}
                 onChange={(e) => setNumber_invoice(e.target.value)}
                 required
