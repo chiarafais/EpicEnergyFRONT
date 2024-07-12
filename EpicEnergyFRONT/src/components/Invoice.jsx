@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
+import { Button, Form, Modal, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const Invoice = () => {
@@ -89,6 +89,27 @@ const Invoice = () => {
       <Button variant="primary" onClick={handleShow}>
         Edit Invoice
       </Button>
+
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>Importo fattura</th>
+            <th>Data fattura</th>
+            <th>Numero fattura</th>
+            <th>Stato fattura</th>
+          </tr>
+        </thead>
+        <tbody>
+          {invoice.map((invoices, index) => (
+            <tr key={index}>
+              <td>{invoices.importInvoice}</td>
+              <td>{invoices.invoiceDate}</td>
+              <td>{invoices.numberInvoice}</td>
+              <td>{invoices.invoiceState.statusName}</td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
