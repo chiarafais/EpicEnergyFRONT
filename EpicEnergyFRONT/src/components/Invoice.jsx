@@ -86,13 +86,13 @@ const Invoice = () => {
   };
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Edit Invoice
+      <Button variant="primary" onClick={handleShow} className="nuovaFatturaButton">
+        Nuova fattura
       </Button>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Edit Invoice</Modal.Title>
+          <Modal.Title>Inserisci dati nuova fattura</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleInvoices}>
@@ -101,6 +101,7 @@ const Invoice = () => {
               <Form.Control
                 type="date"
                 value={invoice_date}
+                placeholder="Inserisci data fattura"
                 onChange={(e) => setInvoice_date(e.target.value)}
                 required
               />
@@ -110,6 +111,7 @@ const Invoice = () => {
               <Form.Control
                 type="number"
                 value={import_invoice}
+                placeholder="Inserisci importo fattura"
                 onChange={(e) => setImport_invoice(e.target.value)}
                 required
               />
@@ -119,6 +121,7 @@ const Invoice = () => {
               <Form.Control
                 type="number"
                 value={number_invoice}
+                placeholder="Inserisci numero fattura"
                 onChange={(e) => setNumber_invoice(e.target.value)}
                 required
               />
@@ -129,16 +132,19 @@ const Invoice = () => {
               <Form.Control
                 type="text"
                 value={name_status}
+                placeholder="Inserisci stato fattura"
                 onChange={(e) => setName_status(e.target.value)}
                 required
               />
             </Form.Group>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
+            <div className="my-3">
+              <Button variant="dark" className="mx-3" onClick={handleClose}>
+                Chiudi
+              </Button>
+              <Button variant="primary" type="submit" className="buttonSalvaFattura">
+                Salva Fattura
+              </Button>
+            </div>
           </Form>
         </Modal.Body>
       </Modal>
