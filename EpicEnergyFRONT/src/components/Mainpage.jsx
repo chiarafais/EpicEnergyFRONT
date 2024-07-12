@@ -184,7 +184,7 @@ const Mainpage = () => {
                       <td>{allCustomer.insertionDate}</td>
                       <td>{allCustomer.dateLastContact}</td>
                       <td>{allCustomer.annualTurnover}</td>
-                      <td>{allCustomer.customerPec}</td>
+                      <td>{allCustomer.pecCustomer}</td>
                       <td>{allCustomer.telCustomer}</td>
                       <td>{allCustomer.emailContact}</td>
                       <td>{allCustomer.nameContact}</td>
