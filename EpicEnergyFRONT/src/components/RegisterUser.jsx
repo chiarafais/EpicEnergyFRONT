@@ -14,16 +14,13 @@ const RegisterUser = () => {
     event.preventDefault();
 
     try {
-      const response = await fetch(
-        "http://localhost:3001/api/auth/user/register",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ name, surname, username, email, password }),
-        }
-      );
+      const response = await fetch("http://localhost:3001/api/auth/user/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, surname, username, email, password }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -45,7 +42,7 @@ const RegisterUser = () => {
             <h2 className="text-center">Registrazione</h2>
             <Form onSubmit={handleSubmit}>
               <Form.Group>
-                <Form.Label>Nome:</Form.Label>
+                <Form.Label className="lablelRegistrati">Nome:</Form.Label>
                 <Form.Control
                   type="text"
                   value={name}
@@ -55,7 +52,7 @@ const RegisterUser = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Cognome:</Form.Label>
+                <Form.Label className="lablelRegistrati">Cognome:</Form.Label>
                 <Form.Control
                   type="text"
                   value={surname}
@@ -65,7 +62,7 @@ const RegisterUser = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Username:</Form.Label>
+                <Form.Label className="lablelRegistrati">Username:</Form.Label>
                 <Form.Control
                   type="text"
                   value={username}
@@ -75,7 +72,7 @@ const RegisterUser = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Email:</Form.Label>
+                <Form.Label className="lablelRegistrati">Email:</Form.Label>
                 <Form.Control
                   type="email"
                   value={email}
@@ -85,7 +82,7 @@ const RegisterUser = () => {
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label>Password:</Form.Label>
+                <Form.Label className="lablelRegistrati">Password:</Form.Label>
                 <Form.Control
                   type="password"
                   value={password}
@@ -94,11 +91,7 @@ const RegisterUser = () => {
                   required
                 />
               </Form.Group>
-              <Button
-                variant="primary"
-                type="submit"
-                className="mt-2 registratiButton"
-              >
+              <Button variant="primary" type="submit" className="mt-2 registratiButton">
                 Registrati
               </Button>
             </Form>
