@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Modal, Table } from "react-bootstrap";
+import { Button, Container, Form, Modal, Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 
 const Invoice = () => {
@@ -86,83 +86,90 @@ const Invoice = () => {
   };
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Edit Invoice
+      <Button variant="primary" onClick={handleShow} className="nuovaFatturaButton">
+        Nuova fattura
       </Button>
-
-      {invoice && (
-        <Table striped bordered hover>
-          <thead>
-            <tr>
-              <th>Importo fattura</th>
-              <th>Data fattura</th>
-              <th>Numero fattura</th>
-              <th>Stato fattura</th>
-            </tr>
-          </thead>
-          <tbody>
-            {invoice.map((inv, index) => (
-              <tr key={index}>
-                <td>{inv.importInvoice}</td>
-                <td>{inv.invoiceDate}</td>
-                <td>{inv.numberInvoice}</td>
-                <td>{inv.invoiceState.statusName}</td>
+      <Container>
+        {invoice && (
+          <Table striped bordered hover>
+            <thead>
+              <tr>
+                <th>Importo fattura</th>
+                <th>Data fattura</th>
+                <th>Numero fattura</th>
+                <th>Stato fattura</th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
-      )}
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Invoice</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={handleInvoices}>
-            <Form.Group>
-              <Form.Label>Invoice Date:</Form.Label>
-              <Form.Control
-                type="date"
-                value={invoice_date}
-                onChange={(e) => setInvoice_date(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Import Invoice:</Form.Label>
-              <Form.Control
-                type="number"
-                value={import_invoice}
-                onChange={(e) => setImport_invoice(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Number Invoice:</Form.Label>
-              <Form.Control
-                type="number"
-                value={number_invoice}
-                onChange={(e) => setNumber_invoice(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Form.Group>
-              <Form.Label>Name Status:</Form.Label>
-              <Form.Control
-                type="text"
-                value={name_status}
-                onChange={(e) => setName_status(e.target.value)}
-                required
-              />
-            </Form.Group>
-            <Button variant="secondary" onClick={handleClose}>
-              Close
-            </Button>
-            <Button variant="primary" type="submit">
-              Save Changes
-            </Button>
-          </Form>
-        </Modal.Body>
-      </Modal>
+            </thead>
+            <tbody>
+              {invoice.map((inv, index) => (
+                <tr key={index}>
+                  <td>{inv.importInvoice}</td>
+                  <td>{inv.invoiceDate}</td>
+                  <td>{inv.numberInvoice}</td>
+                  <td>{inv.invoiceState.statusName}</td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        )}
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Invoice</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form onSubmit={handleInvoices}>
+              <Form.Group>
+                <Form.Label>Invoice Date:</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={invoice_date}
+                  placeholder="Inserisci data fattura"
+                  onChange={(e) => setInvoice_date(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Import Invoice:</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={import_invoice}
+                  placeholder="Inserisci importo fattura"
+                  onChange={(e) => setImport_invoice(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Number Invoice:</Form.Label>
+                <Form.Control
+                  type="number"
+                  value={number_invoice}
+                  placeholder="Inserisci numero fattura"
+                  onChange={(e) => setNumber_invoice(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <Form.Group>
+                <Form.Label>Name Status:</Form.Label>
+                <Form.Control
+                  type="text"
+                  value={name_status}
+                  placeholder="Inserisci stato fattura"
+                  onChange={(e) => setName_status(e.target.value)}
+                  required
+                />
+              </Form.Group>
+              <div className="my-3">
+                <Button variant="dark" className="mx-3" onClick={handleClose}>
+                  Chiudi
+                </Button>
+                <Button variant="primary" type="submit" className="buttonSalvaFattura">
+                  Salva Fattura
+                </Button>
+              </div>
+            </Form>
+          </Modal.Body>
+        </Modal>
+      </Container>
     </>
   );
 };

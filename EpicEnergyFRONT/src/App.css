@@ -103,3 +103,13 @@ body {
   justify-content: flex-start;
   align-items: center;
 }
+.nuovaFatturaButton {
+  background-color: #242320;
+  border: none;
+  height: 46px;
+  margin: 30px 87px;
+}
+.buttonSalvaFattura {
+  background-color: #8db4d5;
+  border: none;
+}
