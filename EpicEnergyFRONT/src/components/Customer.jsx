@@ -83,7 +83,7 @@ const Customer = () => {
               <Button
                 variant="primary"
                 onClick={() => navigate(`/invoice/${customer.id}`)}
-                className="ms-3"
+                className="ms-3 vediFattureButton"
               >
                 Vedi Fatture
               </Button>

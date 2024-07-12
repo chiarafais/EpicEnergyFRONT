@@ -93,3 +93,8 @@ body {
   display: flex;
   justify-content: flex-end;
 }
+.vediFattureButton {
+  background-color: #242320;
+  border: none;
+  height: 46px;
+}
