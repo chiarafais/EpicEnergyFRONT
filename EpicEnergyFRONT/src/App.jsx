@@ -4,6 +4,7 @@ import Login from "./components/Login";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Mainpage from "./components/Mainpage";
 import RegisterUser from "./components/RegisterUser";
+import Customer from "./components/Customer";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/main" element={<Mainpage />} />
         <Route path="/register" element={<RegisterUser />} />
+        <Route path="/customer/:id" element={<Customer />} />
       </Routes>
     </BrowserRouter>
   );

@@ -3,12 +3,14 @@ import { Table, Form, Button, Modal } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import { useNavigate } from "react-router-dom";
 
 const Mainpage = () => {
   const [show, setShow] = useState(false);
   const [token, setToken] = useState(null);
   const [customer, setCustomer] = useState([]);
   const [filter, setFilter] = useState("name");
+  const navigate = useNavigate();
 
   const [businessName, setBusinessName] = useState("");
   const [vatNumber, setVatNumber] = useState("");
@@ -158,40 +160,30 @@ const Mainpage = () => {
                 <tr>
                   <th>#</th>
                   <th>BusinessName</th>
-                  <th>VatNumber</th>
                   <th>Email</th>
                   <th>InsertionDate</th>
                   <th>DateLastContact</th>
                   <th>AnnualTurnover</th>
-                  <th>PecCustomer</th>
-                  <th>TelCustomer</th>
-                  <th>EmailContact</th>
                   <th>NameContact</th>
                   <th>SurnameContact</th>
-                  <th>TelContact</th>
-                  <th>LogoAgency</th>
-                  <th>ClientType</th>
                 </tr>
               </thead>
               <tbody>
                 {customer &&
                   customer.map((allCustomer, index) => (
-                    <tr key={index}>
+                    <tr
+                      key={index}
+                      onClick={() => navigate(`/customer/${allCustomer.id}`)}
+                      style={{ cursor: "pointer" }}
+                    >
                       <td>{index + 1}</td>
                       <td>{allCustomer.businessName}</td>
-                      <td>{allCustomer.vatNumber}</td>
                       <td>{allCustomer.email}</td>
                       <td>{allCustomer.insertionDate}</td>
                       <td>{allCustomer.dateLastContact}</td>
                       <td>{allCustomer.annualTurnover}</td>
-                      <td>{allCustomer.pecCustomer}</td>
-                      <td>{allCustomer.telCustomer}</td>
-                      <td>{allCustomer.emailContact}</td>
                       <td>{allCustomer.nameContact}</td>
                       <td>{allCustomer.surnameContact}</td>
-                      <td>{allCustomer.telContact}</td>
-                      <td>{allCustomer.logoAgency}</td>
-                      <td>{allCustomer.clientType}</td>
                     </tr>
                   ))}
               </tbody>
