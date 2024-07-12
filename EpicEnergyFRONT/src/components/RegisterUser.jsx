@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Button, Col, Container, Form, Row, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 const RegisterUser = () => {
@@ -8,19 +8,24 @@ const RegisterUser = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
   const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3001/api/auth/user/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ name, surname, username, email, password }),
-      });
+      const response = await fetch(
+        "http://localhost:3001/api/auth/user/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name, surname, username, email, password }),
+        }
+      );
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -30,7 +35,8 @@ const RegisterUser = () => {
       console.log("Registrazione effettuata");
       navigate("/login");
     } catch (err) {
-      console.log(err);
+      setAlertMessage(err.message);
+      setShowAlert(true);
     }
   };
 
@@ -40,6 +46,15 @@ const RegisterUser = () => {
         <Row className="justify-content-md-center">
           <Col md="4">
             <h2 className="text-center">Registrazione</h2>
+            {showAlert && (
+              <Alert
+                variant="danger"
+                onClose={() => setShowAlert(false)}
+                dismissible
+              >
+                {alertMessage}
+              </Alert>
+            )}
             <Form onSubmit={handleSubmit}>
               <Form.Group>
                 <Form.Label className="lablelRegistrati">Nome:</Form.Label>
@@ -91,7 +106,11 @@ const RegisterUser = () => {
                   required
                 />
               </Form.Group>
-              <Button variant="primary" type="submit" className="mt-2 registratiButton">
+              <Button
+                variant="primary"
+                type="submit"
+                className="mt-2 registratiButton"
+              >
                 Registrati
               </Button>
             </Form>
