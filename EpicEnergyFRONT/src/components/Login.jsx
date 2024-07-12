@@ -45,7 +45,7 @@ const Login = () => {
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleLogin}>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>Email</Form.Label>
+                <Form.Label className="lablelRegistrati">Email</Form.Label>
                 <Form.Control
                   type="email"
                   placeholder="Inserisci email"
@@ -56,7 +56,7 @@ const Login = () => {
               </Form.Group>
 
               <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
+                <Form.Label className="lablelRegistrati">Password</Form.Label>
                 <Form.Control
                   type="password"
                   placeholder="Password"
@@ -71,7 +71,7 @@ const Login = () => {
               </Button>
             </Form>
             <div className="text-center">
-              <small className="d-block">oppure</small>
+              <small className="d-block text-white">oppure</small>
               <Link to={"/register"} className="registrati">
                 Registrati
               </Link>

@@ -114,7 +114,7 @@ const Mainpage = () => {
               <Container fluid>
                 <Row className="align-items-center">
                   <Col xs={4} className="d-flex align-items-center p-0">
-                    <Form.Label className="w-100 text-center m-0">
+                    <Form.Label className="w-100 text-center m-0 text-white">
                       Filtra per{" "}
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -127,12 +127,7 @@ const Mainpage = () => {
                         <path d="M0 14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2zm4.5-6.5h5.793L8.146 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708-.708L10.293 8.5H4.5a.5.5 0 0 1 0-1" />
                       </svg>
                     </Form.Label>
-                    <Form.Control
-                      as="select"
-                      value={filter}
-                      onChange={handleFilterChange}
-                      className="filterByButton"
-                    >
+                    <Form.Control as="select" value={filter} onChange={handleFilterChange} className="filterByButton">
                       <option value="name">Business Name</option>
                       <option value="turnover">Annual Turnover</option>
                       <option value="date">Insertion Date</option>
@@ -140,11 +135,7 @@ const Mainpage = () => {
                     </Form.Control>
                   </Col>
                   <Col xs={8} className="text-end p-0">
-                    <Button
-                      variant="primary"
-                      onClick={handleShow}
-                      className="newCustomerButton"
-                    >
+                    <Button variant="primary" onClick={handleShow} className="newCustomerButton">
                       Nuovo Cliente
                     </Button>
                   </Col>
@@ -330,19 +321,10 @@ const Mainpage = () => {
                     />
                   </Form.Group>
                   <div className="divButtonModal">
-                    <Button
-                      variant="secondary"
-                      onClick={handleClose}
-                      className="closeCustomerButtonModal"
-                    >
+                    <Button variant="secondary" onClick={handleClose} className="closeCustomerButtonModal">
                       Close
                     </Button>
-                    <Button
-                      variant="primary"
-                      type="submit"
-                      onClick={handleClose}
-                      className="saveCustomerButtonModal"
-                    >
+                    <Button variant="primary" type="submit" onClick={handleClose} className="saveCustomerButtonModal">
                       Save Customers
                     </Button>
                   </div>
