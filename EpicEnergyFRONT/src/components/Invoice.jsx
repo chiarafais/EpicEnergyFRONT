@@ -55,7 +55,7 @@ const Invoice = () => {
   const handleInvoices = async (e) => {
     e.preventDefault();
     try {
-      let url = `http://localhost:3001/api/customers`;
+      let url = `http://localhost:3001/api/invoices`;
       const response = await fetch(url, {
         method: "POST",
         headers: {
